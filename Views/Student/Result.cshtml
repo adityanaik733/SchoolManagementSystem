@@ -1,0 +1,57 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+@{
+    Layout = null;
+    ViewBag.Title = "My Result";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Result</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.7.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="text-info">📄 Marksheet for @ViewBag.Name</h3>
+            <div>
+                <a href="@Url.Action("DownloadPdf", "Student")" class="btn btn-success me-2">📥 Download PDF</a>
+                <a href="@Url.Action("Logout", "Student")" class="btn btn-danger">🚪 Logout</a>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Subject ID</th>
+                    <th>Marks</th>
+                    <th>Date Given</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.SubjectId</td>
+                        <td>@m.Marks</td>
+                        <td>@m.DateGiven.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <h5>Total Marks: @ViewBag.Total</h5>
+            <h5>Percentage: @String.Format("{0:F2}", ViewBag.Percentage)%</h5>
+        </div>
+
+        <div class="mt-3">
+            @Html.ActionLink("Back to Login", "Login", "Student", null, new { @class = "btn btn-outline-secondary" })
+        </div>
+    </div>
+</body>
+</html>

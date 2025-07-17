@@ -1,0 +1,44 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+@{
+    ViewBag.Title = "Student Dashboard";
+    Layout = null;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h3 class="text-center text-success mb-4">📊 Student Dashboard</h3>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5>Name: @ViewBag.Student.FullName</h5>
+            <h6>Class: @ViewBag.Student.Class</h6>
+            <h6>Total Marks: @ViewBag.Total</h6>
+            <h6>Percentage: @String.Format("{0:F2}", ViewBag.Percentage)%</h6>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Subject</th>
+                <th>Marks</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Subject.SubjectName</td>
+                    <td>@m.Marks</td>
+                    <td>@(m.DateGiven?.ToShortDateString())</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center mt-4">
+        <a href="@Url.Action("DownloadPdf", "Student")" class="btn btn-success">📥 Download Marksheet</a>
+        <a href="@Url.Action("Logout", "Student")" class="btn btn-danger ml-2">🚪 Logout</a>
+    </div>
+</div>

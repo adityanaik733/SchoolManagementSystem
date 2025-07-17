@@ -1,0 +1,43 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+
+@{
+    ViewBag.Title = "View Marks";
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container mt-4">
+    @Html.ActionLink("Back to Dashboard", "Dashboard", "Teacher", new { @class = "btn btn-primary" })
+
+    <h3 class="text-info mb-4">📊 Marks Entered</h3>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Student ID</th>
+                <th>Subject ID</th>
+                <th>Marks</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.StudentId</td>
+                    <td>@m.SubjectId</td>
+                    <td>@m.Marks</td>
+                    <td>@m.DateGiven.ToString()</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditMarks", new { id = m.MarkId }, new { @class = "btn btn-sm btn-warning" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

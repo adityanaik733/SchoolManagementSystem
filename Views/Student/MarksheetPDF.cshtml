@@ -1,0 +1,93 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Marksheet</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+        }
+
+        .header {
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .summary p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+            text-align: center;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2> Marksheet</h2>
+    </div>
+
+    <div class="summary mb-4">
+        <p><strong> Student Name:</strong> @ViewBag.Name</p>
+        <p><strong> Total Marks:</strong> @ViewBag.Total</p>
+        <p><strong> Percentage:</strong> @String.Format("{0:F2}", ViewBag.Percentage)%</p>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th> Subject</th>
+                <th> Marks</th>
+                <th> Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Subject.SubjectName</td>
+                    <td>@m.Marks</td>
+                    <td>@(m.DateGiven?.ToShortDateString())</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>Generated on: @DateTime.Now.ToString("dd-MM-yyyy hh:mm tt")</p>
+    </div>
+</body>
+</html>

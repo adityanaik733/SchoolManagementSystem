@@ -1,0 +1,48 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+@{
+    ViewBag.Title = "Generate Result";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<h3 class="text-primary mb-4">Unpublished Marks</h3>
+
+@if (Model.Any())
+{
+    <form method="post" action="@Url.Action("PublishResult", "Admin")">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Student ID</th>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Teacher ID</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.StudentId</td>
+                        <td>@m.SubjectId</td>
+                        <td>@m.Marks</td>
+                        <td>@m.TeacherId</td>
+                        <td>@m.DateGiven.ToString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-success">Publish All Marksheets</button>
+        @Html.ActionLink("Cancle", "Dashboard", new { @class = "btn btn-primary" })
+    </form>
+}
+else
+{
+    <div class="alert alert-info">No marks pending to publish.</div>
+}

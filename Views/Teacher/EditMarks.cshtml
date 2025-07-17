@@ -1,0 +1,37 @@
+﻿@model SchoolManagementSystem.Models.Mark
+
+@{
+    ViewBag.Title = "Edit Marks";
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="container mt-4">
+    <h3 class="text-warning mb-4">🛠️ Edit Marks</h3>
+
+    @using (Html.BeginForm("EditMarks", "Teacher", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.MarkId)
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.SubjectId)
+            @Html.DropDownListFor(m => m.SubjectId, (SelectList)ViewBag.Subjects, "Select Subject", new { @class = "form-control" })
+        </div>
+
+        <div class="form-group mb-3">
+            @Html.LabelFor(m => m.Marks)
+            @Html.TextBoxFor(m => m.Marks, new { @class = "form-control", type = "number", min = 0, max = 100 })
+        </div>
+
+        <button type="submit" class="btn btn-success">Update</button>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    }
+</div>

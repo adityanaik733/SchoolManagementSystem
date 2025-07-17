@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null; // This page is standalone (no layout)
+    ViewBag.Title = "Teacher Login";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Login</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    
+   
+
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="col-md-4 offset-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="text-center text-primary mb-4">👨‍🏫 Teacher Login</h4>
+
+                    @using (Html.BeginForm("Login", "Teacher", FormMethod.Post))
+                    {
+                        <div class="form-group mb-3">
+                            @Html.Label("User ID")
+                            @Html.TextBox("userId", null, new { @class = "form-control", placeholder = "Enter User ID", required = "required" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            @Html.Label("Password")
+                            @Html.Password("password", null, new { @class = "form-control", placeholder = "Enter Password", required = "required" })
+                        </div>
+
+                        <div align="center">
+                            <button type="submit" class="btn btn-success w-30">Login</button>
+                            @Html.ActionLink("Cancle", "Back", "Teacher", new { @class = "btn btn-danger w-30" })
+                        </div>
+
+                    }
+
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-danger mt-3 text-center">@ViewBag.Message</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

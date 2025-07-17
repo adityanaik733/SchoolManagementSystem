@@ -1,0 +1,60 @@
+﻿@model SchoolManagementSystem.Models.Teacher
+
+@{
+    ViewBag.Title = "Edit Teacher";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4 text-primary">✏️ Edit Student</h2>
+
+    @using (Html.BeginForm("EditTeacher", "Admin", FormMethod.Post))
+    {
+
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>ID</label>
+                @Html.TextBoxFor(m => m.TeacherId, new { @class = "form-control", placeholder = "ID", required = "required", @readonly = "true" })
+            </div>
+
+            <div class="col-md-6">
+                <label>User ID</label>
+                @Html.TextBoxFor(m => m.UserId, new { @class = "form-control", placeholder = "Enter user ID", required = "required" })
+            </div>
+
+            <div class="col-md-6">
+                <label>Full Name</label>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", placeholder = "Enter full name", required = "required" })
+            </div>
+
+            <div class="col-md-6">
+                <label>Password</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter password", required = "required" })
+            </div>
+            <div class="col-md-6">
+                <label>Class</label>
+                @Html.TextBoxFor(m => m.AssignedClass, new { @class = "form-control", placeholder = "Assigned class", required = "required" })
+            </div>
+
+
+
+        </div>
+
+        <div class="row mb-3">
+
+
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success w-50">💾 Update Student</button>
+            @Html.ActionLink("cancle", "TeacherList", null, new { @class = "btn btn-primary" })
+        </div>
+    }
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-info text-center mt-3">
+            @ViewBag.Message
+        </div>
+    }
+</div>

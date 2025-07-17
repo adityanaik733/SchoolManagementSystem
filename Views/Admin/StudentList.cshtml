@@ -1,0 +1,83 @@
+﻿@model List<SchoolManagementSystem.Models.Student>
+@{
+    ViewBag.Title = "Student List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- 🔗 CSS and Scripts -->
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
+<script>
+    $(function () {
+        $("#SearchTerm").autocomplete({
+            source: '@Url.Action("GetStudent", "Admin")',
+            minLength: 1
+        });
+    });
+</script>
+
+<h2 class="text-primary mb-4">👩‍🎓 All Students</h2>
+
+<!-- 🔍 Search and Filter Form -->
+@using (Html.BeginForm("SearchStudent", "Admin", FormMethod.Post))
+{
+    <div class="row mb-3">
+        <div class="col-md-4">
+            @Html.TextBox("SearchTerm", null, new { @class = "form-control", id = "SearchTerm", placeholder = "🔍 Search by Name" })
+
+        </div>
+
+        <div class="col-md-4">
+            <select name="classNo" class="form-control">
+                <option value="">📚 Filter by Class</option>
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i" @(ViewBag.SelectedClass != null && (int)ViewBag.SelectedClass == i ? "selected" : "")>
+                        Class @i
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Apply Filters</button>
+        </div>
+    </div>
+}
+
+<!-- 📋 Student Table -->
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Class</th>
+            <th>User ID</th>
+            <th>Password</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentId</td>
+                <td>@student.FullName</td>
+                <td>@student.Class</td>
+                <td>@student.UserId</td>
+                <td>@student.Password</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditStudent", new { StudentId = student.StudentId }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Delete", "DeleteStudent", new { StudentId = student.StudentId }, new
+                    {
+                        @class = "btn btn-danger btn-sm mx-1",
+                        onclick = "return confirm('Are you sure you want to delete this student?');"
+                    })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

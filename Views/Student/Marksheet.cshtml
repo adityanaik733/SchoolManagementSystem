@@ -1,0 +1,75 @@
+﻿@model List<SchoolManagementSystem.Models.Mark>
+@{
+    Layout = null;
+    ViewBag.Title = "📄 My Result";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .summary h5 {
+            font-weight: 600;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="header text-center">
+            <h3 class="mb-0">📄 Marksheet for @ViewBag.Name</h3>
+        </div>
+
+        <table class="table table-bordered table-striped mt-4">
+            <thead class="table-dark">
+                <tr>
+                    <th>📘 Subject</th>
+                    <th>📝 Marks</th>
+                    <th>📅 Date Given</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var m in Model)
+                {
+                    <tr>
+                        <td>@m.Subject.SubjectName</td>
+                        <td>@m.Marks</td>
+                        <td>@(m.DateGiven?.ToShortDateString())</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="summary mt-4">
+            <h5>📊 Total Marks: <span class="text-primary">@ViewBag.Total</span></h5>
+            <h5>📈 Percentage: <span class="text-success">@String.Format("{0:F2}", ViewBag.Percentage)%</span></h5>
+        </div>
+    </div>
+</body>
+</html>
